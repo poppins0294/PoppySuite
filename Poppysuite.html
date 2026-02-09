@@ -16879,67 +16879,69 @@ STRICT RULES:
 
 
             return (
-                <div id={containerId} className={`glass-card rounded-2xl p-6 border border-slate-200 shadow-sm relative group hover:z-[60] bg-white export-atomic block-card-animated ${anomaly ? 'ring-2 ring-rose-100' : ''}`}>
-                    <div className="absolute -top-6 right-0 w-24 h-8" data-html2canvas-ignore="true"></div>
-                    {anomaly && (
-                        <div
-                            className={`absolute top-0 right-0 px-3 py-1 rounded-bl-xl text-[10px] font-black uppercase tracking-wider z-20 flex items-center gap-1 cursor-pointer transition-transform hover:scale-105 ${anomaly.severity === 'High' ? 'bg-rose-500 text-white animate-pulse' : 'bg-amber-400 text-slate-900'}`}
-                            onClick={() => {
-                                showToast(`Anomaly detected for ${title}: ${anomaly.deviation}% ${anomaly.direction}.`);
-                            }}
-                            title="Click to Investigate Anomaly"
-                        >
-                            <Zap size={10} /> {anomaly.severity} {anomaly.direction}
-                        </div>
-                    )}
-
-
-                    <ElementToolbar
-                        type="kpi"
-                        data={payload}
-                        sparkleData={derivedSparkleData}
-                        sparkleType={sparkleType || type || 'KPI'}
-                        onAskAI={handleAskAI}
-                        onExpand={handleExpand}
-                        onDownloadImage={() => handleCapture()}
-                    />
-
-
-                    <div className="flex justify-between items-start pb-4">
-                        <div className="flex items-center gap-3">
-                            {Icon && (
-                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-lg ${getKpiColorClasses(color)}`}>
-                                    <Icon size={22} />
-                                </div>
-                            )}
-                            <div className="flex flex-col">
-                                <div className="flex items-center gap-1.5">
-                                    <h3 className="text-xs font-black text-slate-900 uppercase tracking-tight">{title}</h3>
-                                    {kpiInfo && (
-                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
-                                            <TooltipIcon text={kpiInfo} />
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                        {(trendValue || delta) && (
-                            <div className={`flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-lg bg-white/70 ${trendColor}`}>
-                                <TrendIcon size={14} />
-                                <span>{trendValue || (delta && (delta.value || delta))}</span>
+                <>
+                    <div id={containerId} className={`glass-card rounded-2xl p-6 border border-slate-200 shadow-sm relative group hover:z-[60] bg-white export-atomic block-card-animated ${anomaly ? 'ring-2 ring-rose-100' : ''}`}>
+                        <div className="absolute -top-6 right-0 w-24 h-8" data-html2canvas-ignore="true"></div>
+                        {anomaly && (
+                            <div
+                                className={`absolute top-0 right-0 px-3 py-1 rounded-bl-xl text-[10px] font-black uppercase tracking-wider z-20 flex items-center gap-1 cursor-pointer transition-transform hover:scale-105 ${anomaly.severity === 'High' ? 'bg-rose-500 text-white animate-pulse' : 'bg-amber-400 text-slate-900'}`}
+                                onClick={() => {
+                                    showToast(`Anomaly detected for ${title}: ${anomaly.deviation}% ${anomaly.direction}.`);
+                                }}
+                                title="Click to Investigate Anomaly"
+                            >
+                                <Zap size={10} /> {anomaly.severity} {anomaly.direction}
                             </div>
                         )}
-                    </div>
 
 
-                    <div className="space-y-1">
-                        <div className="flex items-baseline gap-2">
-                            <span className="text-3xl font-black text-slate-900 tracking-tight">{value}</span>
-                            {subValue && <span className="text-sm font-medium text-slate-500">{subValue}</span>}
+                        <ElementToolbar
+                            type="kpi"
+                            data={payload}
+                            sparkleData={derivedSparkleData}
+                            sparkleType={sparkleType || type || 'KPI'}
+                            onAskAI={handleAskAI}
+                            onExpand={handleExpand}
+                            onDownloadImage={() => handleCapture()}
+                        />
+
+
+                        <div className="flex justify-between items-start pb-4">
+                            <div className="flex items-center gap-3">
+                                {Icon && (
+                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-lg ${getKpiColorClasses(color)}`}>
+                                        <Icon size={22} />
+                                    </div>
+                                )}
+                                <div className="flex flex-col">
+                                    <div className="flex items-center gap-1.5">
+                                        <h3 className="text-xs font-black text-slate-900 uppercase tracking-tight">{title}</h3>
+                                        {kpiInfo && (
+                                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
+                                                <TooltipIcon text={kpiInfo} />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                            {(trendValue || delta) && (
+                                <div className={`flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-lg bg-white/70 ${trendColor}`}>
+                                    <TrendIcon size={14} />
+                                    <span>{trendValue || (delta && (delta.value || delta))}</span>
+                                </div>
+                            )}
+                        </div>
+
+
+                        <div className="space-y-1">
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-3xl font-black text-slate-900 tracking-tight">{value}</span>
+                                {subValue && <span className="text-sm font-medium text-slate-500">{subValue}</span>}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <Modal isOpen={isExpanded} onClose={() => setIsExpanded(false)} title={title} content={<ClonedBlock sourceId={containerId} />} onDownloadImage={onDownloadImage} />
+                    <Modal isOpen={isExpanded} onClose={() => setIsExpanded(false)} title={title} content={<ClonedBlock sourceId={containerId} />} onDownloadImage={onDownloadImage} />
+                </>
             );
         };
 
